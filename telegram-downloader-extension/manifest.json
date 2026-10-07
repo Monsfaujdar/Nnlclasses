@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Telegram Batch Video Downloader",
+  "version": "1.0.0",
+  "description": "Batch-download visible Telegram Web videos with clean, title-based filenames.",
+  "permissions": ["downloads", "storage", "scripting", "activeTab"],
+  "host_permissions": ["https://web.telegram.org/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Telegram Batch Downloader",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://web.telegram.org/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
