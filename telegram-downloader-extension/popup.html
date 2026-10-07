@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Telegram Batch Downloader</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <h1>Telegram Batch Downloader</h1>
+    <p class="muted">Works with videos currently loaded in Telegram Web.</p>
+
+    <button id="scan" class="primary">Scan Videos</button>
+
+    <section id="controls" class="hidden">
+      <div class="row">
+        <label>Filename style</label>
+        <select id="naming">
+          <option value="title">Title</option>
+          <option value="number-title">001 - Title</option>
+          <option value="id-title">Message ID - Title</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Delay between downloads (sec)</label>
+        <input id="delay" type="number" min="0" max="60" value="2">
+      </div>
+
+      <div class="actions">
+        <button id="selectAll">Select all</button>
+        <button id="start" class="primary">Start Batch</button>
+      </div>
+
+      <div id="list"></div>
+    </section>
+
+    <section class="status">
+      <div id="status">Ready.</div>
+      <div class="bar"><div id="barFill"></div></div>
+    </section>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
