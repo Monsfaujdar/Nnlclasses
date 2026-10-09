@@ -291,18 +291,51 @@ async def handle_private(client: Client, acc, message: Message, chatid: int, msg
         if ph_path != None: os.remove(ph_path)
         
 
-    elif "Video" == msg_type:
+        elif "Video" == msg_type:
+        ph_path = None
+        custom_thumb_path = None
+
         try:
-            ph_path = await acc.download_media(msg.video.thumbs[0].file_id)
-        except:
-            ph_path = None
-        
-        try:
-            await client.send_video(chat, file, duration=msg.video.duration, width=msg.video.width, height=msg.video.height, thumb=ph_path, caption=caption, reply_to_message_id=reply_id, parse_mode=enums.ParseMode.HTML, progress=progress, progress_args=[message,"up"])
+            custom_thumb_path = await download_custom_thumbnail(client)
+
+            if custom_thumb_path:
+                ph_path = custom_thumb_path
+            else:
+                try:
+                    if msg.video.thumbs:
+                        ph_path = await acc.download_media(
+                            msg.video.thumbs[0].file_id
+                        )
+                except Exception:
+                    ph_path = None
+
+            await client.send_video(
+                chat,
+                file,
+                duration=msg.video.duration,
+                width=msg.video.width,
+                height=msg.video.height,
+                thumb=ph_path,
+                caption=caption,
+                reply_to_message_id=reply_id,
+                parse_mode=enums.ParseMode.HTML,
+                progress=progress,
+                progress_args=[message, "up"],
+            )
+
         except Exception as e:
-            if ERROR_MESSAGE == True:
-                await client.send_message(message.chat.id, f"Error: {e}", reply_to_message_id=reply_id, parse_mode=enums.ParseMode.HTML)
-        if ph_path != None: os.remove(ph_path)
+            if ERROR_MESSAGE:
+                await client.send_message(
+                    message.chat.id,
+                    f"Error sending video: {e}",
+                    reply_to_message_id=reply_id,
+                )
+
+        finally:
+            remove_thumbnail_file(custom_thumb_path)
+
+            if ph_path and ph_path != custom_thumb_path:
+                remove_thumbnail_file(ph_path)
 
     elif "Animation" == msg_type:
         try:
