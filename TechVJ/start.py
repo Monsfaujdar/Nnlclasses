@@ -13,7 +13,11 @@ from config import API_ID, API_HASH, ERROR_MESSAGE, LOGIN_SYSTEM, STRING_SESSION
 from database.db import db
 from TechVJ.strings import HELP_TXT
 from bot import TechVJUser
-
+from TechVJ.thumbnail_utils import (
+    download_custom_thumbnail,
+    remove_thumbnail_file,
+    get_thumbnail_file_id,
+)
 class batch_temp(object):
     IS_BATCH = {}
 
