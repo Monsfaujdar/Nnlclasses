@@ -63,11 +63,11 @@ async def send_start(client: Client, message: Message):
     await client.send_message(
         chat_id=message.chat.id,
         text=(
-            f"<b>👋 Hi {name}!\\n\\n"
-            "Welcome to your Telegram media assistant. Choose a feature below:</b>\\n\\n"
-            "📝 <b>Change caption:</b> remove saved promotional text from forwarded video captions.\\n"
-            "📥 <b>Download videos:</b> process Telegram post links and ranges in sequence.\\n"
-            "☁️ <b>Streamable:</b> send supported files to Streamable (upload integration must be configured).\\n"
+            f"<b>👋 Hi {name}!\n\n"
+            "Welcome to your Telegram media assistant. Choose a feature below:</b>\n\n"
+            "📝 <b>Change caption:</b> remove saved promotional text from forwarded video captions.\n"
+            "📥 <b>Download videos:</b> process Telegram post links and ranges in sequence.\n"
+            "☁️ <b>Streamable:</b> send supported files to Streamable (upload integration must be configured).\n"
             "ℹ️ <b>Help:</b> view commands and usage instructions."
         ),
         reply_markup=main_menu(),
@@ -80,20 +80,20 @@ async def menu_callback(client: Client, query):
     action = query.data
     if action == "menu_caption":
         text = (
-            "<b>📝 Change caption / Remove text</b>\\n\\n"
+            "<b>📝 Change caption / Remove text</b>\n\n"
             "Use /rename and send the exact line/text to remove. The rule is saved in MongoDB. "
-            "Then forward videos to this bot; it sends a cleaned copy and keeps the original unchanged.\\n\\n"
+            "Then forward videos to this bot; it sends a cleaned copy and keeps the original unchanged.\n\n"
             "Commands: /rename status — show the current rule; /rename off — disable cleaning."
         )
     elif action == "menu_download":
         text = (
-            "<b>📥 Download Telegram videos</b>\\n\\n"
+            "<b>📥 Download Telegram videos</b>\n\n"
             "Send one or more Telegram post links, or a message range such as https://t.me/channel/100-105. "
             "Use /login first when the post requires your account. Use /cancel to stop the active queue."
         )
     elif action == "menu_streamable":
         text = (
-            "<b>☁️ Streamable upload</b>\\n\\n"
+            "<b>☁️ Streamable upload</b>\n\n"
             "This menu entry is ready, but automatic Streamable uploading is not implemented/configured yet. "
             "It requires a supported upload method and any credentials required by your Streamable account. "
             "The bot will not claim a file was uploaded until the service confirms it."
